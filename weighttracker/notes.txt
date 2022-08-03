@@ -1,0 +1,5 @@
+This is my notes of changes and thoughts of how I go about things. This way I can better explain my desicion making and improvments as well as things I've learned or would change.
+
+I've run into the issue to where I'm thinking best case scenario where everything passes first try by asking for only 3 weights. What if the unit is failing so much that is requires
+more than 3 weights.
+I need to try running a while loop that keeps going until my list has 3 acceptable readings.
