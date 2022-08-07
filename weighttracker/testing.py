@@ -47,17 +47,20 @@ class Pump:
     def set_tolerance_range(self, new_tolerance_range):
         self.tolerance_range = new_tolerance_range
 
-def main():
-    meteringpump_weights = []
+meteringpump_weights = []
 
-    # I wonder if theres a cleaner way to have lines 54-56.
-    acceptable_weight_range = TOLERANCE_WITHIN_WEIGHTS * meteringpump_weights[0] # Changed to list index 0 no longer the first weight. If the first weight is replaced then this would be a problem
-    highest_acceptable_range = acceptable_weight_range + meteringpump_weights[0] # Changed to list index 0 no longer the first weight. If the first weight is replaced then this would be a problem
-    lowest_acceptable_range = meteringpump_weights[0] - acceptable_weight_range # Changed to list index 0 no longer the first weight. If the first weight is replaced then this would be a problem
+def main():
 
     while True:
+
+        # I wonder if theres a cleaner way to have the next 3 lines. Also the placement feels weird
+        acceptable_weight_range = TOLERANCE_WITHIN_WEIGHTS * meteringpump_weights[0] # Changed to list index 0 no longer the first weight. If the first weight is replaced then this would be a problem
+        highest_acceptable_range = acceptable_weight_range + meteringpump_weights[0] # Changed to list index 0 no longer the first weight. If the first weight is replaced then this would be a problem
+        lowest_acceptable_range = meteringpump_weights[0] - acceptable_weight_range # Changed to list index 0 no longer the first weight. If the first weight is replaced then this would be a problem
+
         weight_in_grams = float(input("Enter the weight reading in grams: "))
         if len(meteringpump_weights) == 3:
+
             print("All three weights have been saved. Here they are:\n")
             average_weight = (meteringpump_weights[0] + meteringpump_weights[1] + meteringpump_weights[2]) / len(meteringpump_weights) # Did the length of the list rather than have a magic number.
             metering_pump_undertest = Pump(meteringpump_weights[0], meteringpump_weights[1], meteringpump_weights[2], TOLERANCE_WITHIN_WEIGHTS, average_weight)
