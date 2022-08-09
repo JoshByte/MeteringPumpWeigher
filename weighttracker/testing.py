@@ -53,13 +53,8 @@ def main():
 
     while True:
 
-        # I wonder if theres a cleaner way to have the next 3 lines. Also the placement feels weird
-        acceptable_weight_range = TOLERANCE_WITHIN_WEIGHTS * meteringpump_weights[0] # Changed to list index 0 no longer the first weight. If the first weight is replaced then this would be a problem
-        highest_acceptable_range = acceptable_weight_range + meteringpump_weights[0] # Changed to list index 0 no longer the first weight. If the first weight is replaced then this would be a problem
-        lowest_acceptable_range = meteringpump_weights[0] - acceptable_weight_range # Changed to list index 0 no longer the first weight. If the first weight is replaced then this would be a problem
-
         weight_in_grams = float(input("Enter the weight reading in grams: "))
-        if len(meteringpump_weights) == 3:
+        if len(meteringpump_weights) != 3:
 
             print("All three weights have been saved. Here they are:\n")
             average_weight = (meteringpump_weights[0] + meteringpump_weights[1] + meteringpump_weights[2]) / len(meteringpump_weights) # Did the length of the list rather than have a magic number.
@@ -74,6 +69,11 @@ def main():
         else:
             print("The weight has been saved. Can move on to the next weight.")
             meteringpump_weights.append(weight_in_grams)
+
+            # I wonder if theres a cleaner way to have the next 3 lines. Also the placement feels weird
+            acceptable_weight_range = TOLERANCE_WITHIN_WEIGHTS * meteringpump_weights[0] # Changed to list index 0 no longer the first weight. If the first weight is replaced then this would be a problem
+            highest_acceptable_range = acceptable_weight_range + meteringpump_weights[0] # Changed to list index 0 no longer the first weight. If the first weight is replaced then this would be a problem
+            lowest_acceptable_range = meteringpump_weights[0] - acceptable_weight_range # Changed to list index 0 no longer the first weight. If the first weight is replaced then this would be a problem
 
             print(f"The next readings have to be greater {weight_in_grams - acceptable_weight_range} and less than {weight_in_grams + acceptable_weight_range}\n")
             continue
