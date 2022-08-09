@@ -3,8 +3,6 @@
 
 # I might be able to get rid a bunch of the code in main by just running a loop on the first_weight asking for weight until the list has 3 readings. That will clean up my main function.
 
-from tabnanny import check
-
 
 TOLERANCE_WITHIN_WEIGHTS = 0.02 # percent
 
