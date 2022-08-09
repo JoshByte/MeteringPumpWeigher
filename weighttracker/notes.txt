@@ -3,3 +3,13 @@ This is my notes of changes and thoughts of how I go about things. This way I ca
 I've run into the issue to where I'm thinking best case scenario where everything passes first try by asking for only 3 weights. What if the unit is failing so much that is requires
 more than 3 weights.
 I need to try running a while loop that keeps going until my list has 3 acceptable readings.
+
+In this project I wanted to try and incorporate as much as I currently know about OOP.
+
+The hardest thing I've had to do so far is making sure I keep track of the scope of the variables and getting them to work with each other.
+What I like is this program has made me think about different ways to make it work. For example:
+Having the if statement be == at first then trying != instead. Theres many ways to solve problems but there are some that are better than others.
+
+8/9/22
+When I come back I need to fix the looping problem with the checking. I need to change it to get only 3 readings and not 4.
+It is getting closer. Testing.py is looking better soon it will be pretty good.
