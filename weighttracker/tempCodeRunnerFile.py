@@ -1,1 +1,0 @@
-    if second_weight < highest_acceptable_range and second_weight > lowest_acceptable_range:
