@@ -25,3 +25,5 @@ This program is simple and doesn't ask for very much input from the user so I do
 
 This is my first project using VSCode and GitHub destop. I really like how easy it is to sync everything over to GitHub.
 On my next project I want to try using branches as my testing section and then have my master for the main of the program.
+
+The reason I changed the names of main and testing to original and main. Is that I wanted to be able to show the difference between my start and finish.
