@@ -13,3 +13,12 @@ Having the if statement be == at first then trying != instead. Theres many ways 
 8/9/22
 When I come back I need to fix the looping problem with the checking. I need to change it to get only 3 readings and not 4.
 It is getting closer. Testing.py is looking better soon it will be pretty good.
+
+8/16/22
+The solution to the above problem was that I needed to add my weight first then see if the list was empty not the other way around.
+Now that i've fixed the looping problem I will now move ontu testing the failure weights inputed by the user.
+I have now tested to see that the list acts as I want it to by dropping all readings and only holding ontu the good weight.
+
+I have now formatted the output of the weights to show two decimal places. Now I am going to create input checking.
+For input checking I like to use PyInputPlus. I like how it will automatically loop till the proper input format is given by the user.
+This program is simple and doesn't ask for very much input from the user so I don't have to do much checking of user input.
