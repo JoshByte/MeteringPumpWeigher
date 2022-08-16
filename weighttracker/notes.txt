@@ -22,3 +22,6 @@ I have now tested to see that the list acts as I want it to by dropping all read
 I have now formatted the output of the weights to show two decimal places. Now I am going to create input checking.
 For input checking I like to use PyInputPlus. I like how it will automatically loop till the proper input format is given by the user.
 This program is simple and doesn't ask for very much input from the user so I don't have to do much checking of user input.
+
+This is my first project using VSCode and GitHub destop. I really like how easy it is to sync everything over to GitHub.
+On my next project I want to try using branches as my testing section and then have my master for the main of the program.
