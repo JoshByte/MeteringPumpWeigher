@@ -1,17 +1,9 @@
-# Josh Snyder
-# Metering pump weight tracker
+# This is my test file before adding it to the main file.
+# I want to see if I can run a while loop on the main function till I get three good readings in my list.
 
-# The weight will be in grams
-# The nominal value is 453.00
-# Take the first weight
-# Calculate 2% of the first weight
-# Say what the weight has to be above and below
-#   Check if the the next weight is within that 2% range
-#       if yes then hold ontu both weights, and take the next, next reading
-#       if next, next reading is within that 2% range, then calculate the average of the 3 readings
-#       print to the console all three readings and the average reading
+# I might be able to get rid a bunch of the code in main by just running a loop on the first_weight asking for weight until the list has 3 readings. That will clean up my main function.
 
-# Cant use a tuple because if the reading suddenly drops or jumps then I need to get rid of the old data and have the new reading take its place. A List will work fine.
+import pyinputplus as pyip
 
 TOLERANCE_WITHIN_WEIGHTS = 0.02 # percent
 
@@ -24,11 +16,11 @@ class Pump:
         self.average = average
     
     def tellData(self):
-        print(f"The first weight given was: {self.first_weight}")
-        print(f"The second weight given was: {self.second_weight}")
-        print(f"The third weight given was: {self.third_weight}")
-        print(f"The tolerance range set was: {self.tolerance_range} percent")
-        print(f"The average of the weights given was: {self.average}")
+        print(f"The first weight given was: {self.first_weight:.2f}")
+        print(f"The second weight given was: {self.second_weight:.2f}")
+        print(f"The third weight given was: {self.third_weight:.2f}")
+        print(f"The tolerance range set was: {self.tolerance_range:.2f} percent")
+        print(f"The average of the weights given was: {self.average:.2f}")
     
     def get_first_weight(self):
         print(self.first_weight)
@@ -57,40 +49,47 @@ class Pump:
     def set_tolerance_range(self, new_tolerance_range):
         self.tolerance_range = new_tolerance_range
 
+meteringpump_weights = []
 
 def main():
-    meteringpump_weights = []
 
-    first_weight = float(input("Enter the first weight reading in grams: "))
-    meteringpump_weights.append(first_weight)
-    
-    acceptable_weight_range = TOLERANCE_WITHIN_WEIGHTS * meteringpump_weights[0] # Changed to list index 0 no longer the first weight. If the first weight is replaced then this would be a problem
-    highest_acceptable_range = acceptable_weight_range + meteringpump_weights[0] # Changed to list index 0 no longer the first weight. If the first weight is replaced then this would be a problem
-    lowest_acceptable_range = meteringpump_weights[0] - acceptable_weight_range # Changed to list index 0 no longer the first weight. If the first weight is replaced then this would be a problem
+    while True:
 
-    print(f"The next readings have to be greater {first_weight - acceptable_weight_range} and less than {first_weight + acceptable_weight_range}\n")
+        weight_in_grams = pyip.inputFloat("Enter the weight reading in grams: ")
+        meteringpump_weights.append(weight_in_grams)
+        if len(meteringpump_weights) != 3:
 
-    second_weight = float(input("Enter the second reading in grams: "))
-    if second_weight < highest_acceptable_range and second_weight > lowest_acceptable_range:
-        print("Okay the second weight is within 2%. Move on to the next weight.\n")
-        meteringpump_weights.append(second_weight)
+            print(f"The weight {weight_in_grams:.2f} has been saved.")
+
+            # I wonder if theres a cleaner way to have the next 3 lines or is this okay.
+            acceptable_weight_range = TOLERANCE_WITHIN_WEIGHTS * meteringpump_weights[0] # Changed to list index 0 no longer the first weight. If the first weight is replaced then this would be a problem
+            highest_acceptable_range = acceptable_weight_range + meteringpump_weights[0] # Changed to list index 0 no longer the first weight. If the first weight is replaced then this would be a problem
+            lowest_acceptable_range = meteringpump_weights[0] - acceptable_weight_range # Changed to list index 0 no longer the first weight. If the first weight is replaced then this would be a problem
+
+            check_range(weight_in_grams, highest_acceptable_range, lowest_acceptable_range)
+
+            print(f"The next readings have to be greater than {weight_in_grams - acceptable_weight_range:.2f} and less than {weight_in_grams + acceptable_weight_range:.2f}\n")
+
+            continue
+
+        else:
+            print("All three weights have been saved. Here they are:\n")
+            average_weight = (meteringpump_weights[0] + meteringpump_weights[1] + meteringpump_weights[2]) / len(meteringpump_weights) # Did the length of the list rather than have a magic number.
+            metering_pump_undertest = Pump(meteringpump_weights[0], meteringpump_weights[1], meteringpump_weights[2], TOLERANCE_WITHIN_WEIGHTS, average_weight)
+            metering_pump_undertest.tellData()
+            break
+
+# Confirms the weight is within the 2% range
+def check_range(weight, highest_range, lowest_range):
+    range_calculation = weight <= highest_range and weight >= lowest_range
+
+    if range_calculation == True:
+        print(f"The weight {weight:.2f} is within the 2% range. Ready for the next weight.")
     else:
-        print("The weight has past the 2% allowed range. This will now be the first reading.")
-        meteringpump_weights[0] = second_weight
+        print(f"The weight {weight:.2f} has past the 2% allowed range. This is now the first reading.")
+        meteringpump_weights.clear() # This will empty the list of all items
+        meteringpump_weights.append(weight) # After having a clean list I will add this new weight as the "first one" or the one were gonna have the accepted range determined by.
 
-    third_weight = float(input("Enter the third weight in grams: "))
-    if third_weight < highest_acceptable_range and third_weight > lowest_acceptable_range:
-        print("Okay the third weight is within 2%. All three readings have been saved.\n")
-        meteringpump_weights.append(third_weight)
-        average_weight = (first_weight + second_weight + third_weight) / 3 # Algorithm to get the average of the 3 weights.
-    else:
-        print("The weight was not within the 2% allowed range. This will now be the first reading.")
-
-    metering_pump_undertest = Pump(first_weight, second_weight, third_weight, TOLERANCE_WITHIN_WEIGHTS, average_weight)
-    metering_pump_undertest.tellData()
 
 if __name__ == '__main__':
     main()
-
-# Instead of asking for 1st, 2nd, and 3rd weights I should only ask for the weight. There could be more than 3 weights if the pump is being a problem I could make a while loop that runs until my meteringpump_weights list has three
-# acceptable values.
